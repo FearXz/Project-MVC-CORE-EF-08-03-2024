@@ -6,6 +6,7 @@ namespace Project_MVC_CORE_EF.Models
     public class Cliente
     {
         [Key]
+        [Display(Name = "Nominativo Cliente")]
         public int IdCliente { get; set; }
 
         [Required]

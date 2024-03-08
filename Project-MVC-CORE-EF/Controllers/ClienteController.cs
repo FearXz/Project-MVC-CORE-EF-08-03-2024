@@ -46,8 +46,6 @@ namespace Project_MVC_CORE_EF.Controllers
         }
 
         // POST: Cliente/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -59,8 +57,10 @@ namespace Project_MVC_CORE_EF.Controllers
             {
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Cliente aggiunto con successo";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["error"] = "Problema con l'aggiunta del cliente";
             return View(cliente);
         }
 
@@ -100,9 +100,11 @@ namespace Project_MVC_CORE_EF.Controllers
                 {
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();
+                    TempData["success"] = "Cliente modificato con successo";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["error"] = "Problema con la modifica del cliente";
                     if (!ClienteExists(cliente.IdCliente))
                     {
                         return NotFound();
@@ -144,7 +146,7 @@ namespace Project_MVC_CORE_EF.Controllers
             {
                 _context.Clienti.Remove(cliente);
             }
-
+            TempData["success"] = "Cliente eliminato con successo";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

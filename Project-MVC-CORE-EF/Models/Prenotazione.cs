@@ -10,14 +10,17 @@ namespace Project_MVC_CORE_EF.Models
 
         [Required]
         [ForeignKey("Cliente")]
+        [Display(Name = "Nominativo Cliente")]
         public int IdCliente { get; set; }
 
         [Required]
         [ForeignKey("Camera")]
+        [Display(Name = "Numero Camera")]
         public int IdCamera { get; set; }
 
         [Required]
         [ForeignKey("Pensione")]
+        [Display(Name = "Tipo Pensione")]
         public int IdPensione { get; set; }
 
         [Required]

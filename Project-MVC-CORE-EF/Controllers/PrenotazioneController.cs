@@ -101,6 +101,7 @@ namespace Project_MVC_CORE_EF.Controllers
             {
                 _context.Add(prenotazione);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Prenotazione creata con successo";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdCamera"] = new SelectList(
@@ -121,6 +122,7 @@ namespace Project_MVC_CORE_EF.Controllers
                 "TipoPensione",
                 prenotazione.IdPensione
             );
+            TempData["error"] = "Problema con la creazione della prenotazione";
             return View(prenotazione);
         }
 
@@ -151,6 +153,7 @@ namespace Project_MVC_CORE_EF.Controllers
             {
                 _context.Add(servizio);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Servizio aggiunto con successo";
                 return RedirectToAction("Details", new { id = id });
             }
             ViewData["IdPrenotazione"] = id;
@@ -159,6 +162,7 @@ namespace Project_MVC_CORE_EF.Controllers
                 "IdTipoServizio",
                 "NomeTipoServizio"
             );
+            TempData["error"] = "Problema con l'aggiunta di un servizio";
             return View(servizio);
         }
 
@@ -178,7 +182,7 @@ namespace Project_MVC_CORE_EF.Controllers
             ViewData["IdCamera"] = new SelectList(
                 _context.Camere,
                 "IdCamera",
-                "IdCamera",
+                "NumeroCamera",
                 prenotazione.IdCamera
             );
             ViewData["IdCliente"] = new SelectList(
@@ -223,9 +227,12 @@ namespace Project_MVC_CORE_EF.Controllers
                 {
                     _context.Update(prenotazione);
                     await _context.SaveChangesAsync();
+
+                    TempData["success"] = "Prenotazione Modificata con successo";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["error"] = "problema con la modifica della prenotazione";
                     if (!PrenotazioneExists(prenotazione.IdPrenotazione))
                     {
                         return NotFound();
@@ -240,13 +247,13 @@ namespace Project_MVC_CORE_EF.Controllers
             ViewData["IdCamera"] = new SelectList(
                 _context.Camere,
                 "IdCamera",
-                "IdCamera",
+                "NumeroCamera",
                 prenotazione.IdCamera
             );
             ViewData["IdCliente"] = new SelectList(
                 _context.Clienti,
                 "IdCliente",
-                "Cellulare",
+                "NomeCompleto",
                 prenotazione.IdCliente
             );
             ViewData["IdPensione"] = new SelectList(
@@ -255,6 +262,7 @@ namespace Project_MVC_CORE_EF.Controllers
                 "TipoPensione",
                 prenotazione.IdPensione
             );
+            TempData["error"] = "problema con la modifica della prenotazione";
             return View(prenotazione);
         }
 
@@ -291,6 +299,7 @@ namespace Project_MVC_CORE_EF.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["success"] = "Prenotazione cancellata con successo";
             return RedirectToAction(nameof(Index));
         }
 
