@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Project_MVC_CORE_EF.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CognomeCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodFiscale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Citta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cellulare)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CognomeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodFiscale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Citta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cellulare)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdCliente">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCliente">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCliente">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

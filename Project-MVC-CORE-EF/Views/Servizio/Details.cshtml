@@ -1,0 +1,36 @@
+﻿@model Project_MVC_CORE_EF.Models.Servizio
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Servizio</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CostoServizio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CostoServizio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Prenotazione)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Prenotazione.IdPrenotazione)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoServizio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoServizio.NomeTipoServizio)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdServizio">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

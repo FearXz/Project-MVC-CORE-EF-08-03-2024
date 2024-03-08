@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "GestisciCategorie";
+}
+
+<h1>GestisciCategorie</h1>
+
+<div class="row">
+    <div class="col-sm-6 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestisci Tipologie Servizi</h5>
+                <a asp-action="Index" asp-controller="TipoServizio" class="btn btn-primary">Servizi</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestisci Tipologie Pensioni</h5>
+                <a asp-action="Index" asp-controller="Pensione" class="btn btn-primary">Pensioni</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestisci Tipologie Camere</h5>
+                <a asp-action="Index" asp-controller="TipoCamera" class="btn btn-primary">Camere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+
+                  
+        });
+    </script>
+}

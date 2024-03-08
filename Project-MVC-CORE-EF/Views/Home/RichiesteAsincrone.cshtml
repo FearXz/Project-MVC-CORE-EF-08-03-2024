@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "RichiesteAsincrone";
+}
+
+<h1>RichiesteAsincrone</h1>
+<div>
+    <div class="mb-3">
+        <label for="codiceFiscale" class="form-label">Ricerca per Codice Fiscale</label>
+        <input type="text" class="form-control" id="codiceFiscale" aria-describedby="codiceFiscaleHelp">
+
+        <button id="codiceFiscaleSearch" class="btn btn-primary mt-3">Cerca</button>
+    </div>
+</div>
+<div id="FetchTotalePensioniComplete" class="mb-5">
+</div>
+<div id="FetchByCodiceFiscale">
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+
+            async function FetchByCodiceFiscale(codiceFiscale) {
+                try {
+                    const response = await fetch('/Home/FetchByCodiceFiscale?codiceFiscale=' + codiceFiscale);
+
+                    if (!response.ok) {
+                        throw new Error('Errore nella richiesta fetch');
+                    }
+
+                    const data = await response.json();
+
+                    console.log(data);
+
+                    const container = $('#FetchByCodiceFiscale');
+                    container.empty();
+
+                    data.forEach(prenotazione => {
+                        
+
+                        const cliente = prenotazione.cliente;
+                        const servizi = prenotazione.servizi;
+
+                        const serviziHtml = servizi.map(servizio => {
+                            return `<a href="#" class="list-group-item list-group-item-action">${servizio.nomeTipoServizio}: €${servizio.costoServizio}</a>`;
+                        }).join('');
+                       
+
+
+                     let divFlex = $('<div></div>');
+                        divFlex.addClass('d-flex mb-3');
+
+                        divFlex.append(`
+                                        <div>
+                                            <div class="card me-5" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Prenotazione n: ${prenotazione.idPrenotazione}</h5>
+                                                    <p class="card-text">Dal : ${prenotazione.dataInizioPrenotazione} </p>
+                                                    <p class="card-text">Al : ${prenotazione.dataFinePrenotazione}</p>
+                                                    <p class="card-text">${prenotazione.tipoPensione}</p>
+                                                    <p class="card-text">${cliente.nomeCliente} ${cliente.cognomeCliente}</p>
+                                                    <p class="card-text">Codice Fiscale : ${cliente.codFiscale}</p>
+                                                    <p class="card-text">Email : ${cliente.email}</p>
+                                                    <p class="card-text">Cellulare : ${cliente.cellulare}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="list-group">
+                                                <h2>Servizi</h2>
+                                         ${serviziHtml}
+                                         </div>
+                                    `);
+                        container.append(divFlex);
+                    });
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
+
+            async function FetchTotalePensioniComplete() {
+                try {
+                    const response = await fetch('/Home/FetchTotalePensioniComplete');
+                    const data = await response.json();
+
+                    console.log(data);
+
+                    const container = $('#FetchTotalePensioniComplete');
+                    container.empty();
+                    container.append('<h3>Totale Pensioni Complete: ' + data + '</h3>');
+                }
+                catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
+            $('#codiceFiscaleSearch').click(function () {
+                var codiceFiscale = $('#codiceFiscale').val();
+                console.log(codiceFiscale);
+                FetchByCodiceFiscale(codiceFiscale);
+            });
+            FetchTotalePensioniComplete();
+        });
+    </script>
+}

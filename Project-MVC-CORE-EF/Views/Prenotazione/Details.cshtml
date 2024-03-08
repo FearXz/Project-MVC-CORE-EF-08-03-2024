@@ -1,0 +1,97 @@
+﻿@model Project_MVC_CORE_EF.Models.Prenotazione
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="mb-5">
+    <h4>Prenotazione</h4>
+    <hr />
+    <div class="row ">
+
+        <div class="col-6">
+           <h5>
+               Data Inizio Prenotazione:
+            </h5>
+           <p class="fs-5">
+               @Model.DataInizioPrenotazione
+           </p>
+        </div>
+        <div class="col-6">
+            <h5>
+                Data Fine Prenotazione:
+            </h5>
+            <p class="fs-5">
+                @Model.DataFinePrenotazione
+            </p>
+        </div>
+        <div class="col-6">
+            <h5>
+                Nominativo Cliente:
+            </h5>
+            <p class="fs-5">
+                @Model.Cliente.NomeCompleto
+            </p>
+        </div>
+        <div class="col-6">
+            <h5>
+                Acconto Versato :
+            </h5>
+            <p class="fs-5">
+                @Model.AccontoPrenotazione
+            </p>
+        </div>
+        <div class="col-6">
+            <h5>
+                Numero Camera :
+            </h5>
+            <p class="fs-5">
+                @Model.Camera.NumeroCamera
+            </p>
+        </div>
+        <div class="col-6">
+            <h5>
+                Pensione Scelta :
+            </h5>
+            <p class="fs-5">
+                @Model.Pensione.TipoPensione
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h4>Costo Totale: @ViewBag.Totale €</h4>
+        </div>
+        <div class="col-6">
+            <h4>Costo Da Saldare: @ViewBag.TotaleDaSaldare €</h4>
+        </div>
+    </div>
+
+</div>
+<div class="mb-5">
+    <a asp-action="Edit" class="btn btn-success" asp-route-id="@Model?.IdPrenotazione">Edit</a> 
+    <a asp-action="CreateService" class="btn btn-primary" asp-route-id="@Model?.IdPrenotazione">Aggiungi Servizio</a> 
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+<h4>Servizi</h4>
+@foreach(var item in Model.Servizi)
+{
+    <div>
+
+        <hr />
+        <div class="row fs-4 fw-semibold">
+            <div class="col-3">
+                @item.TipoServizio.NomeTipoServizio
+            </div>
+            <div class="col-3">
+                @item.CostoServizio €
+            </div>
+            <div class="col-3">
+                <a asp-action="Delete" asp-controller="Servizio" class="btn btn-danger" asp-route-id="@item.IdServizio">Delete</a>
+            </div>
+        </div>
+
+    </div>
+}

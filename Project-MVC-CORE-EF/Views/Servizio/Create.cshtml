@@ -1,0 +1,41 @@
+﻿@model Project_MVC_CORE_EF.Models.Servizio
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Servizio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdPrenotazione" class="control-label"></label>
+                <select asp-for="IdPrenotazione" class ="form-control" asp-items="ViewBag.IdPrenotazione"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdTipoServizio" class="control-label"></label>
+                <select asp-for="IdTipoServizio" class ="form-control" asp-items="ViewBag.IdTipoServizio"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostoServizio" class="control-label"></label>
+                <input asp-for="CostoServizio" class="form-control" />
+                <span asp-validation-for="CostoServizio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
